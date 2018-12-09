@@ -13,6 +13,9 @@
 #include <sstream>
 #include <stdexcept>
 
+// mxd Library
+#include "window.hpp"
+
 // OpenGL Libraries
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -23,6 +26,13 @@ void initialize() {
   if (auto status = glfwInit(); status == GLFW_FALSE) {
     throw std::runtime_error("Unable to initialize GLFW");
   }
+
+  nzl::Window win(800, 600, "Invisible Window");
+  win.hide();
+  win.make_current();
+
+  glfwWindowHint(GLFW_VERSION_MAJOR, glGetString(GL_VERSION)[0]);
+  glfwWindowHint(GLFW_VERSION_MINOR, glGetString(GL_VERSION)[2]);
 };
 
 void terminate() noexcept { glfwTerminate(); }
